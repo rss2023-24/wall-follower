@@ -1,6 +1,16 @@
 <launch>
+
+  <!-- Open the model file -->
+  <arg name="racecar_xacro" default="$(find wall_follower)/racecar.xacro"/>
+  <!-- <arg name="racecar_xacro" default="/home/racecar/racecar_ws/src/wall-follower/racecar.xacro"/> -->
+  <param name="robot_description" command="xacro --inorder '$(arg racecar_xacro)'"/>
+
   <!-- Launch the wall follower with parameters -->
   <node pkg="wall_follower" name="wall_follower" type="wall_follower.py" output="screen">
     <rosparam command="load" file="$(find wall_follower)/params.yaml"/>
   </node>
+
+  <!-- Add the transformations -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
 </launch>
