@@ -3,7 +3,7 @@ import rospy
 class PID:
 
     setpoint = rospy.get_param("wall_follower/desired_distance")
-    MAX_STEERING_ANGLE = rospy.get_param("racecar_simulator/max_steering_angle")
+    MAX_STEERING_ANGLE = rospy.get_param("wall_follower/max_steering_angle")
 
     def __init__(self):
         # self.Kp = 3.5

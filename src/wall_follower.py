@@ -51,8 +51,8 @@ class WallFollower:
 
         directional = left if self.SIDE == 1 else right
 
-        sight_threshold = 2.2 * self.DESIRED_DISTANCE
-        include_threshold = 1.5 * self.DESIRED_DISTANCE
+        sight_threshold = 2.5 * self.DESIRED_DISTANCE
+        include_threshold = 1.8 * self.DESIRED_DISTANCE
 
         avg_forward_dist = np.median( [dist for _, dist in forward] )
 
@@ -90,7 +90,8 @@ class WallFollower:
 
         min_dist = min( (x ** 2.0 + y ** 2.0) ** (1.0/2.0) for x, y in zip(line_x, line_y) )
 
-        min_dist = min_dist if not(see_wall) else max(min_dist - 3.5, 0.0)
+        wall_translation_constant = 4.0
+        min_dist = min_dist if not(see_wall) else max(min_dist - wall_translation_constant, 0.0)
 
         drive_angle = self.controller.step(min_dist)
         self.drive(drive_angle if self.SIDE == -1 else -drive_angle)
@@ -109,7 +110,11 @@ class WallFollower:
         #     color = 'yellow'
         # else:
         #     color = 'red'
-        VisualizationTools.plot_line(line_x, line_y, self.line_pub, color, frame="/laser")
+        
+	# print(line_x)
+	# print(line_y)	
+
+	VisualizationTools.plot_line(line_x, line_y, self.line_pub, color, frame="/laser")
 
         # rospy.loginfo("Min distance: {}\n\n".format(min_dist))
 
