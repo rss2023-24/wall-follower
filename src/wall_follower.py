@@ -111,10 +111,10 @@ class WallFollower:
         # else:
         #     color = 'red'
         
-	# print(line_x)
-	# print(line_y)	
+        # print(line_x)
+        # print(line_y)	
 
-	VisualizationTools.plot_line(line_x, line_y, self.line_pub, color, frame="/laser")
+        VisualizationTools.plot_line(line_x, line_y, self.line_pub, color, frame="/laser")
 
         # rospy.loginfo("Min distance: {}\n\n".format(min_dist))
 
