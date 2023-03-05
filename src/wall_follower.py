@@ -47,7 +47,10 @@ class WallFollower:
         segment_len = len(scan_pairs) / 3
         right, forward, left = scan_pairs[0 : segment_len], scan_pairs[segment_len : 2 * segment_len], scan_pairs[2 * segment_len : ]
 
-        directional = left if self.SIDE == 1 else right
+        directional_choice_constant = 0.3
+        side_choice = left if self.SIDE == 1 else right
+        directional_lst = list(sorted(side_choice, key=lambda p: p[1]))
+        directional = directional_lst[0 : int(math.ceil(directional_choice_constant * len(directional)))]
 
         sight_threshold = 2.5 * self.DESIRED_DISTANCE
         include_threshold = 1.8 * self.DESIRED_DISTANCE
@@ -59,8 +62,9 @@ class WallFollower:
         if see_wall:
             pairs = filter( (lambda p: p[1] <= include_threshold), directional + forward )
         else:
-            min_dist = min(directional, key=lambda p: p[1])[1]
-            pairs = filter((lambda p: p[1] <= 1.3 * min_dist), directional)
+            pairs = directional
+            # min_dist = min(directional, key=lambda p: p[1])[1]
+            # pairs = filter((lambda p: p[1] <= 1.3 * min_dist), directional)
 
         # print("Max: {}".format(max(degs)))
         # print("Min: {}".format(min(degs)))
