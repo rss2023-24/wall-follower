@@ -91,25 +91,21 @@ class WallFollower:
         drive_angle = self.controller.step(min_dist)
         self.drive(drive_angle if self.SIDE == -1 else -drive_angle)
 
+        if (see_wall):
+            print("Wall sighted")
+        else:
+            print("Parallel to wall")
+
         # VisualizationTools.plot_line(correct_x, correct_y, self.line_pub, 'green', frame="/laser")
         # VisualizationTools.plot_line(incorrect_x, incorrect_y, self.line_pub, 'red', frame="/laser")
 
-        delta = 0.2
-        if min_dist > self.DESIRED_DISTANCE * (1.0 + delta) or min_dist < self.DESIRED_DISTANCE * (1.0 - delta):
-            color = 'red'
-        else:
-            color = 'green'
-        # if at_corner_close:
-            # color = 'yellow'
-        # if see_wall:
-        #     color = 'yellow'
-        # else:
+        # delta = 0.2
+        # if min_dist > self.DESIRED_DISTANCE * (1.0 + delta) or min_dist < self.DESIRED_DISTANCE * (1.0 - delta):
         #     color = 'red'
-        
-        # print(line_x)
-        # print(line_y)	
+        # else:
+        #     color = 'green'
 
-        VisualizationTools.plot_line(line_x, line_y, self.line_pub, color, frame="/laser")
+        # VisualizationTools.plot_line(line_x, line_y, self.line_pub, color, frame="/laser")
 
         # rospy.loginfo("Min distance: {}\n\n".format(min_dist))
 
