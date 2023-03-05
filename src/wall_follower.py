@@ -50,7 +50,7 @@ class WallFollower:
         directional_choice_constant = 0.3
         side_choice = left if self.SIDE == 1 else right
         directional_lst = list(sorted(side_choice, key=lambda p: p[1]))
-        directional = directional_lst[0 : int(math.ceil(directional_choice_constant * len(directional)))]
+        directional = directional_lst[0 : int(math.ceil(directional_choice_constant * len(directional_lst)))]
 
         sight_threshold = 2.5 * self.DESIRED_DISTANCE
         include_threshold = 1.8 * self.DESIRED_DISTANCE
