@@ -6,17 +6,14 @@ class PID:
     MAX_STEERING_ANGLE = rospy.get_param("wall_follower/max_steering_angle")
 
     def __init__(self):
-        # self.Kp = 3.5
-        # self.Ki = 1.2
-        # self.Kd = 0.2
 
-        # self.Kp = 8.0
-        # self.Ki = 3.0
-        # self.Kd = 0.5
+        # self.Kp = 0.8
+        # self.Ki = 0.7
+        # self.Kd = 0.15
 
-        self.Kp = 0.8
-        self.Ki = 0.7
-        self.Kd = 0.15
+        self.Kp = 0.1
+        self.Ki = 0.0
+        self.Kd = 0.0
 
         self.last_time = rospy.Time().now()
         self.last_error = 0
