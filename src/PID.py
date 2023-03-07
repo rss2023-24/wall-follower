@@ -11,7 +11,7 @@ class PID:
         # self.Ki = 0.7
         # self.Kd = 0.15
 
-        self.Kp = 0.1
+        self.Kp = 0.25
         self.Ki = 0.0
         self.Kd = 0.0
 
