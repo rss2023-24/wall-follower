@@ -9,7 +9,7 @@ from ackermann_msgs.msg import AckermannDriveStamped
 import math
 from visualization_tools import *
 from PID import PID
-
+from std_msgs.msg import Float32
 
 class WallFollower:
     # Import ROS parameters from the "params.yaml" file.
@@ -28,6 +28,7 @@ class WallFollower:
     def __init__(self):
         self.line_pub = rospy.Publisher(self.WALL_TOPIC, Marker, queue_size=1)
         self.drive_pub = rospy.Publisher(self.DRIVE_TOPIC, AckermannDriveStamped, queue_size=1)
+        self.min_dist_pub = rospy.Publisher('/min_distance', Float32, queue_size=1) 
         rospy.Subscriber('scan', LaserScan, self.laser_callback)
 
         self.controller = PID()
@@ -108,14 +109,7 @@ class WallFollower:
 
         y = get_loss_function(self.DESIRED_DISTANCE, min_dist)
 
-        self.x_list.append(self.numLoops)
-        self.numLoops += 1
-        self.y_list.append(y)
-        plt.plot(self.x_list, self.y_list)
-        plt.xlabel('Actual Distance')
-        plt.ylabel('Loss')
-        plt.title('Loss Function')
-        plt.show()
+        self.min_dist_pub.publish(min_dist)
 
         # VisualizationTools.plot_line(correct_x, correct_y, self.line_pub, 'green', frame="/laser")
         # VisualizationTools.plot_line(incorrect_x, incorrect_y, self.line_pub, 'red', frame="/laser")
