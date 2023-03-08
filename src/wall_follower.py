@@ -31,6 +31,10 @@ class WallFollower:
         rospy.Subscriber('scan', LaserScan, self.laser_callback)
 
         self.controller = PID()
+        
+        self.x_list = []
+        self.y_list = []
+        self.numLoops = 0
 
     def drive(self, angle):
         ts = AckermannDriveStamped()
@@ -104,12 +108,14 @@ class WallFollower:
 
         y = get_loss_function(self.DESIRED_DISTANCE, min_dist)
 
-        plt.plot(numLoops, y)
+        self.x_list.append(self.numLoops)
+        self.numLoops += 1
+        self.y_list.append(y)
+        plt.plot(self.x_list, self.y_list)
         plt.xlabel('Actual Distance')
         plt.ylabel('Loss')
         plt.title('Loss Function')
         plt.show()
-        numLoops += 1
 
         # VisualizationTools.plot_line(correct_x, correct_y, self.line_pub, 'green', frame="/laser")
         # VisualizationTools.plot_line(incorrect_x, incorrect_y, self.line_pub, 'red', frame="/laser")
