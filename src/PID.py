@@ -12,9 +12,9 @@ class PID:
         # self.Kd = 0.15
 
         # self.Kp = 0.5
-        self.Kp = 0.5
+        self.Kp = 0.6
         self.Ki = 0.0
-        self.Kd = 0.1
+        self.Kd = 0.15
 
         self.last_time = rospy.Time().now()
         self.last_error = 0
