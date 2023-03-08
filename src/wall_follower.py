@@ -93,8 +93,8 @@ class WallFollower:
         min_dist = min_dist if not(see_wall) else max(min_dist - wall_translation_constant, 0.0)
 
         drive_angle = self.controller.step(min_dist)
-        # self.drive(drive_angle if self.SIDE == -1 else -drive_angle)
-        self.drive(0)
+        self.drive(drive_angle if self.SIDE == -1 else -drive_angle)
+        # self.drive(0)
 
         if (see_wall):
             print("Wall sighted")
