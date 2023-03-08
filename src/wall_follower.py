@@ -73,6 +73,7 @@ class WallFollower:
 
     def laser_callback(self, data):
         ls = data
+        numLoops = 0
 
         sp = make_scan_pairs(ls)
         pairs, see_wall = self.slice_data(sp)
@@ -100,6 +101,15 @@ class WallFollower:
             print("Wall sighted")
         else:
             print("Parallel to wall")
+
+        y = get_loss_function(self.DESIRED_DISTANCE, min_dist)
+
+        plt.plot(numLoops, y)
+        plt.xlabel('Actual Distance')
+        plt.ylabel('Loss')
+        plt.title('Loss Function')
+        plt.show()
+        numLoops += 1
 
         # VisualizationTools.plot_line(correct_x, correct_y, self.line_pub, 'green', frame="/laser")
         # VisualizationTools.plot_line(incorrect_x, incorrect_y, self.line_pub, 'red', frame="/laser")
@@ -144,6 +154,9 @@ def generate_line_points(x_arr, m, c):
     predicted_y = [m * x + c for x in x_arr]
     return x_arr[:], predicted_y
 
+def get_loss_function(desired_dist, actual_dist):
+    error = desired_dist - actual_dist
+    return abs(error)
 
 if __name__ == "__main__":
     rospy.init_node('wall_follower')
