@@ -24,13 +24,38 @@ class WallFollower:
     VELOCITY = rospy.get_param("wall_follower/velocity")
     DESIRED_DISTANCE = rospy.get_param("wall_follower/desired_distance")
 
+    SETPOINT_TOPIC = "setpoint"
+    STATE_TOPIC = "state"
+    CONTROL_EFFORT_TOPIC = "control_effort"
+    PID_ENABLE_TOPIC = "pid_enable"
+    PID_DEBUG_TOPIC = "pid_debug"
+    angle_control = 0
+    setpoint = rospy.get_param("wall_follower/desired_distance")
 
     def __init__(self):
         self.line_pub = rospy.Publisher(self.WALL_TOPIC, Marker, queue_size=1)
         self.drive_pub = rospy.Publisher(self.DRIVE_TOPIC, AckermannDriveStamped, queue_size=1)
         rospy.Subscriber('scan', LaserScan, self.laser_callback)
 
-        self.controller = PID()
+        self.setpoint_pub = rospy.Publisher(self.SETPOINT_TOPIC, Marker, queue_size=1)
+        self.state_pub = rospy.Publisher(self.STATE_TOPIC, Marker, queue_size=1)
+        rospy.Subscriber(self.CONTROL_EFFORT_TOPIC, float, self.pid_callback)
+        self.pid_enable_pub = rospy.Publisher(self.PID_ENABLE_TOPIC, Marker, queue_size=1)       
+        rospy.Subscriber(self.PID_DEBUG_TOPIC, float, self.pid_callback)
+
+        #self.controller = PID()
+
+    def pid_callback(self, data):
+        angle_control = data
+        self.drive(angle_control if self.SIDE == -1 else -angle_control)
+
+    def debug_callback(self, data):
+        rospy.log(data)
+
+    def pid_publishes(self, distance):
+        self.pid_enable_pub.publish(True)
+        self.setpoint_pub.publish(self.setpoint)
+        self.state_pub.publish(distance)
 
     def drive(self, angle):
         ts = AckermannDriveStamped()
@@ -92,9 +117,10 @@ class WallFollower:
         wall_translation_constant = 4.0
         min_dist = min_dist if not(see_wall) else max(min_dist - wall_translation_constant, 0.0)
 
-        drive_angle = self.controller.step(min_dist)
+        #drive_angle = self.controller.step(min_dist)
         # self.drive(drive_angle if self.SIDE == -1 else -drive_angle)
-        self.drive(0)
+        #self.drive(0)
+        self.pid_publishes(min_dist)
 
         if (see_wall):
             print("Wall sighted")
