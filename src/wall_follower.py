@@ -28,7 +28,8 @@ class WallFollower:
     def __init__(self):
         self.line_pub = rospy.Publisher(self.WALL_TOPIC, Marker, queue_size=1)
         self.drive_pub = rospy.Publisher(self.DRIVE_TOPIC, AckermannDriveStamped, queue_size=1)
-        self.min_dist_pub = rospy.Publisher('/min_distance', Float32, queue_size=1) 
+
+        self.min_dist_pub = rospy.Publisher('/data/min_dist', Float32, queue_size=1)
         rospy.Subscriber('scan', LaserScan, self.laser_callback)
 
         self.controller = PID()
@@ -96,10 +97,12 @@ class WallFollower:
 
         min_dist = min( (x ** 2.0 + y ** 2.0) ** (1.0/2.0) for x, y in zip(line_x, line_y) )
 
-        wall_translation_constant = 1.0
-        min_dist = min_dist if not(see_wall) else max(min_dist - wall_translation_constant, 0.0)
 
-        drive_angle = self.controller.step(min_dist)
+
+        wall_translation_constant = 1.0
+        translated_min_dist = min_dist if not(see_wall) else max(min_dist - wall_translation_constant, 0.0)
+
+        drive_angle = self.controller.step(translated_min_dist)
         self.drive(drive_angle if self.SIDE == -1 else -drive_angle)
         # self.drive(0)
 
