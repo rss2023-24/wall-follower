@@ -65,7 +65,8 @@ class WallFollower:
         see_wall = avg_forward_dist <= sight_threshold
 
         if see_wall:
-            pairs = filter( (lambda p: p[1] <= include_threshold), directional + forward )
+            # pairs = filter( (lambda p: p[1] <= include_threshold), directional + forward )
+            pairs = filter( (lambda p: p[1] <= sight_threshold), directional + forward )
         else:
             pairs = directional
             # min_dist = min(directional, key=lambda p: p[1])[1]
