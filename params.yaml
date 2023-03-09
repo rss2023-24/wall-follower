@@ -2,9 +2,9 @@ scan_topic: "/scan"
 drive_topic: "/vesc/ackermann_cmd_mux/input/navigation"
 side: -1
 velocity: 1.2
-desired_distance: 0.3
+desired_distance: 0.5
 max_steering_angle: 0.34
 
-Kp: 0.8
+Kp: 0.6
 Ki: 0.0
-Kd: 0.0
+Kd: 0.1
