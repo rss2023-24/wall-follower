@@ -9,7 +9,7 @@ from ackermann_msgs.msg import AckermannDriveStamped
 import math
 from visualization_tools import *
 from PID import PID
-
+from std_msgs.msg import Float32
 
 class WallFollower:
     # Import ROS parameters from the "params.yaml" file.
@@ -28,9 +28,14 @@ class WallFollower:
     def __init__(self):
         self.line_pub = rospy.Publisher(self.WALL_TOPIC, Marker, queue_size=1)
         self.drive_pub = rospy.Publisher(self.DRIVE_TOPIC, AckermannDriveStamped, queue_size=1)
+        self.min_dist_pub = rospy.Publisher('/min_distance', Float32, queue_size=1) 
         rospy.Subscriber('scan', LaserScan, self.laser_callback)
 
         self.controller = PID()
+        
+        self.x_list = []
+        self.y_list = []
+        self.numLoops = 0
 
     def drive(self, angle):
         ts = AckermannDriveStamped()
@@ -73,6 +78,7 @@ class WallFollower:
 
     def laser_callback(self, data):
         ls = data
+        numLoops = 0
 
         sp = make_scan_pairs(ls)
         pairs, see_wall = self.slice_data(sp)
@@ -100,6 +106,10 @@ class WallFollower:
             print("Wall sighted")
         else:
             print("Parallel to wall")
+
+        y = get_loss_function(self.DESIRED_DISTANCE, min_dist)
+
+        self.min_dist_pub.publish(min_dist)
 
         # VisualizationTools.plot_line(correct_x, correct_y, self.line_pub, 'green', frame="/laser")
         # VisualizationTools.plot_line(incorrect_x, incorrect_y, self.line_pub, 'red', frame="/laser")
@@ -144,6 +154,9 @@ def generate_line_points(x_arr, m, c):
     predicted_y = [m * x + c for x in x_arr]
     return x_arr[:], predicted_y
 
+def get_loss_function(desired_dist, actual_dist):
+    error = desired_dist - actual_dist
+    return abs(error)
 
 if __name__ == "__main__":
     rospy.init_node('wall_follower')
