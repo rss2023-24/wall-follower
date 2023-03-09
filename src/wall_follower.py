@@ -96,7 +96,7 @@ class WallFollower:
 
         min_dist = min( (x ** 2.0 + y ** 2.0) ** (1.0/2.0) for x, y in zip(line_x, line_y) )
 
-        wall_translation_constant = 1.5
+        wall_translation_constant = 1.0
         min_dist = min_dist if not(see_wall) else max(min_dist - wall_translation_constant, 0.0)
 
         drive_angle = self.controller.step(min_dist)
