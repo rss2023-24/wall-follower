@@ -57,7 +57,7 @@ class WallFollower:
         directional_lst = list(sorted(side_choice, key=lambda p: p[1]))
         directional = directional_lst[0 : int(math.ceil(directional_choice_constant * len(directional_lst)))]
 
-        sight_threshold = 3.5 * self.DESIRED_DISTANCE
+        sight_threshold = 3.0 * self.DESIRED_DISTANCE
         include_threshold = 2.2 * self.DESIRED_DISTANCE
 
         avg_forward_dist = np.median( [dist for _, dist in forward] )
@@ -96,7 +96,7 @@ class WallFollower:
 
         min_dist = min( (x ** 2.0 + y ** 2.0) ** (1.0/2.0) for x, y in zip(line_x, line_y) )
 
-        wall_translation_constant = 4.5
+        wall_translation_constant = 3.0
         min_dist = min_dist if not(see_wall) else max(min_dist - wall_translation_constant, 0.0)
 
         drive_angle = self.controller.step(min_dist)
