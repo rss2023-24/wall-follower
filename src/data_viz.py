@@ -4,7 +4,7 @@ import csv
 x = []
 y = []
 
-csv_filename = '../data/csv/new_csv/right_slow.csv'
+csv_filename = '../data/csv/new_csv/right_fast.csv'
 # csv_filename = '../data/csv/left_fast.csv'
 with open(csv_filename,'r') as csvfile:
     lines = csv.reader(csvfile, delimiter=',')
