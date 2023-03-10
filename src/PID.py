@@ -28,6 +28,7 @@ class PID:
             Kp, Ki, Kd = float(lines[0][0]), float(lines[0][1]), float(lines[0][2])
         
         print(Kp, Ki, Kd)
+        print(lines)
         
         curr_time = rospy.Time().now()
         time_delta = (curr_time - self.last_time).to_sec()
