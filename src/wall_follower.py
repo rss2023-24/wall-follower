@@ -41,7 +41,7 @@ class WallFollower:
         self.state_pub = rospy.Publisher(self.STATE_TOPIC, Marker, queue_size=1)
         rospy.Subscriber(self.CONTROL_EFFORT_TOPIC, float, self.pid_callback)
         self.pid_enable_pub = rospy.Publisher(self.PID_ENABLE_TOPIC, Marker, queue_size=1)       
-        rospy.Subscriber(self.PID_DEBUG_TOPIC, float, self.pid_callback)
+        rospy.Subscriber(self.PID_DEBUG_TOPIC, float, self.debug_callback)
 
         #self.controller = PID()
 
