@@ -53,7 +53,7 @@ class WallFollower:
         segment_len = len(scan_pairs) / 3
         right, forward, left = scan_pairs[0 : segment_len], scan_pairs[segment_len : 2 * segment_len], scan_pairs[2 * segment_len : ]
 
-        directional_choice_constant = 0.3
+        directional_choice_constant = 0.15
         side_choice = left if self.SIDE == 1 else right
         directional_lst = list(sorted(side_choice, key=lambda p: p[1]))
         directional = directional_lst[0 : int(math.ceil(directional_choice_constant * len(directional_lst)))]
