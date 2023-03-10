@@ -40,7 +40,7 @@ class PID:
         error_signal = self.setpoint - curr_distance
 
         proportional_output = self.Kp * error_signal
-        integral_output = self.Ki * (time_delta * (error_signal + self.last_error) / 2)
+        integral_output = self.Ki * (time_delta * (error_signal + self.last_error) / 2.0)
         derivative_output = self.Kd * ((error_signal - self.last_error) / time_delta)
 
         control_signal = proportional_output + integral_output + derivative_output
