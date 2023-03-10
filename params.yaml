@@ -6,5 +6,5 @@ desired_distance: 0.5
 max_steering_angle: 0.34
 
 Kp: 0.5
-Ki: 0.0
+Ki: 0.1
 Kd: 0.05

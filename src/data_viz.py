@@ -4,7 +4,7 @@ import csv
 x = []
 y = []
 
-csv_filename = '../data/csv/data.csv'
+csv_filename = '../data/csv/c.csv'
 with open(csv_filename,'r') as csvfile:
     lines = csv.reader(csvfile, delimiter=',')
     # print(type(lines))
@@ -24,9 +24,9 @@ plt.xticks(rotation = 25)
 # plt.title('Weather Report', fontsize = 20)
 
 ax = plt.gca()
-ax.set_xlim([None, 1678328678401520289])
+# ax.set_xlim([None, 1678328678401520289])
 ax.set_ylim([0.40, 0.60])
-# ax.set_xlim([None, None])
+ax.set_xlim([None, None])
 # ax.set_ylim([None, None])
 
 plt.grid()
