@@ -58,7 +58,7 @@ class WallFollower:
         directional_lst = list(sorted(side_choice, key=lambda p: p[1]))
         directional = directional_lst[0 : int(math.ceil(directional_choice_constant * len(directional_lst)))]
 
-        sight_threshold = 4.0 * self.DESIRED_DISTANCE
+        sight_threshold = 4.5 * self.DESIRED_DISTANCE
         include_threshold = 2.2 * self.DESIRED_DISTANCE
 
         avg_forward_dist = np.median( [dist for _, dist in forward] )
