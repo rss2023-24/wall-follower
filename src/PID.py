@@ -1,4 +1,5 @@
 import rospy
+import csv
 
 class PID:
 
@@ -20,6 +21,14 @@ class PID:
         self.last_error = 0
     
     def step(self, curr_distance):
+        
+        params_filename = 'consts.csv'
+        with open(params_filename,'r') as csvfile:
+            lines = list(csv.reader(csvfile, delimiter=','))
+            Kp, Ki, Kd = lines[0], lines[1], lines[2]
+        
+        print(Kp, Ki, Kd)
+        
         curr_time = rospy.Time().now()
         time_delta = (curr_time - self.last_time).to_sec()
 
