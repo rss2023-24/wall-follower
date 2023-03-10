@@ -22,7 +22,7 @@ class PID:
     
     def step(self, curr_distance):
         
-        params_filename = 'consts.csv'
+        params_filename = '~/racecar_ws/src/team-24/wall-follower/src/consts.csv'
         with open(params_filename,'r') as csvfile:
             lines = list(csv.reader(csvfile, delimiter=','))
             Kp, Ki, Kd = lines[0], lines[1], lines[2]
