@@ -100,7 +100,7 @@ class WallFollower:
 
 
         # wall_translation_constant = 0.0
-        wall_translation_constant = 0.65 * self.VELOCITY
+        wall_translation_constant = 0.8 * self.VELOCITY
         translated_min_dist = min_dist if not(see_wall) else max(min_dist - wall_translation_constant, 0.0)
 
         drive_angle = self.controller.step(translated_min_dist)
