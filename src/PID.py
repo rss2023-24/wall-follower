@@ -25,7 +25,7 @@ class PID:
         params_filename = '/home/racecar/racecar_ws/src/team-24/wall-follower/src/consts.csv'
         with open(params_filename,'r') as csvfile:
             lines = list(csv.reader(csvfile, delimiter=','))
-            Kp, Ki, Kd = lines[0][0], lines[0][1], lines[0][2]
+            Kp, Ki, Kd = float(lines[0][0]), float(lines[0][1]), float(lines[0][2])
         
         print(Kp, Ki, Kd)
         
