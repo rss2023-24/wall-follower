@@ -9,6 +9,6 @@ max_steering_angle: 0.34
 # Ki: 0.20
 # Kd: 0.05
 
-Kp: 0.7
-Ki: 0.25
+Kp: 0.8
+Ki: 0.3
 Kd: 0.05
