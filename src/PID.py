@@ -27,7 +27,7 @@ class PID:
             lines = list(csv.reader(csvfile, delimiter=','))
             Kp, Ki, Kd = float(lines[0][0]), float(lines[0][1]), float(lines[0][2])
         
-        print(Kp, Ki, Kd)
+        # print(Kp, Ki, Kd)
         # print(lines)
 
         self.Kp = Kp
