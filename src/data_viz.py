@@ -4,7 +4,8 @@ import csv
 x = []
 y = []
 
-csv_filename = '../data/csv/new_csv/left_slow.csv'
+csv_filename = '../data/csv/new_csv/right_slow.csv'
+# csv_filename = '../data/csv/left_fast.csv'
 with open(csv_filename,'r') as csvfile:
     lines = csv.reader(csvfile, delimiter=',')
     # print(type(lines))
@@ -26,7 +27,7 @@ plt.xticks(rotation = 25)
 ax = plt.gca()
 # ax.set_xlim([None, 1678328678401520289])
 ax.set_xlim([None, None])
-ax.set_ylim([0.1, 0.9])
+ax.set_ylim([0.2, 0.8])
 # ax.set_ylim([None, None])
 
 plt.grid()
