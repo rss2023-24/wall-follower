@@ -22,17 +22,17 @@ class PID:
     
     def step(self, curr_distance):
         
-        params_filename = '/home/racecar/racecar_ws/src/team-24/wall-follower/src/consts.csv'
-        with open(params_filename,'r') as csvfile:
-            lines = list(csv.reader(csvfile, delimiter=','))
-            Kp, Ki, Kd = float(lines[0][0]), float(lines[0][1]), float(lines[0][2])
+        # params_filename = '/home/racecar/racecar_ws/src/team-24/wall-follower/src/consts.csv'
+        # with open(params_filename,'r') as csvfile:
+        #     lines = list(csv.reader(csvfile, delimiter=','))
+        #     Kp, Ki, Kd = float(lines[0][0]), float(lines[0][1]), float(lines[0][2])
         
         # print(Kp, Ki, Kd)
         # print(lines)
 
-        self.Kp = Kp
-        self.Ki = Ki
-        self.Kd = Kd
+        # self.Kp = Kp
+        # self.Ki = Ki
+        # self.Kd = Kd
         
         curr_time = rospy.Time().now()
         time_delta = (curr_time - self.last_time).to_sec()
