@@ -107,10 +107,12 @@ class WallFollower:
         self.drive(drive_angle if self.SIDE == -1 else -drive_angle)
         # self.drive(0)
 
-        if (see_wall):
-            print("Wall sighted")
-        else:
-            print("Parallel to wall")
+        # if (see_wall):
+        #     print("Wall sighted")
+        # else:
+        #     print("Parallel to wall")
+
+        print(min_dist)
 
         y = get_loss_function(self.DESIRED_DISTANCE, min_dist)
 
